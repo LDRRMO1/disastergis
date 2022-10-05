@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/Gingoog_Boundary_1.js"></script>
+        <script src="data/GingoogHazardFloodandLandslide_2.js"></script>
+        <script src="data/Gingoog_bybrgy_no_overlapping_3.js"></script>
+        <script src="data/Geotag_4.js"></script>
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+            highlightLayer.openPopup();
+        }
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[8.829338736341684,125.09868953596086],[8.831843801475651,125.1023256305026]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_GoogleTerrainHybrid_0');
+        map.getPane('pane_GoogleTerrainHybrid_0').style.zIndex = 400;
+        var layer_GoogleTerrainHybrid_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
+            pane: 'pane_GoogleTerrainHybrid_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+        });
+        layer_GoogleTerrainHybrid_0;
+        map.addLayer(layer_GoogleTerrainHybrid_0);
+        function pop_Gingoog_Boundary_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ID'] !== null ? autolinker.link(feature.properties['ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Gingoog_Boundary_1_0() {
+            return {
+                pane: 'pane_Gingoog_Boundary_1',
+                opacity: 1,
+                color: 'rgba(56,128,54,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(77,175,74,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Gingoog_Boundary_1');
+        map.getPane('pane_Gingoog_Boundary_1').style.zIndex = 401;
+        map.getPane('pane_Gingoog_Boundary_1').style['mix-blend-mode'] = 'normal';
+        var layer_Gingoog_Boundary_1 = new L.geoJson(json_Gingoog_Boundary_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Gingoog_Boundary_1',
+            layerName: 'layer_Gingoog_Boundary_1',
+            pane: 'pane_Gingoog_Boundary_1',
+            onEachFeature: pop_Gingoog_Boundary_1,
+            style: style_Gingoog_Boundary_1_0,
+        });
+        bounds_group.addLayer(layer_Gingoog_Boundary_1);
+        map.addLayer(layer_Gingoog_Boundary_1);
+        function pop_GingoogHazardFloodandLandslide_2(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <th scope="row">ID</th>\
+                        <td>' + (feature.properties['ID'] !== null ? autolinker.link(feature.properties['ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ID2</th>\
+                        <td>' + (feature.properties['ID2'] !== null ? autolinker.link(feature.properties['ID2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Hazard</th>\
+                        <td>' + (feature.properties['Hazard'] !== null ? autolinker.link(feature.properties['Hazard'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_GingoogHazardFloodandLandslide_2_0(feature) {
+            switch(String(feature.properties['Hazard'])) {
+                case 'HIGH FLOOD SUSCEPTIBILITY':
+                    return {
+                pane: 'pane_GingoogHazardFloodandLandslide_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(103,0,13,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'HIGH LANDSLIDE SUSCEPTIBILITY':
+                    return {
+                pane: 'pane_GingoogHazardFloodandLandslide_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(179,18,24,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'LOW FLOOD SUSCEPTIBILITY':
+                    return {
+                pane: 'pane_GingoogHazardFloodandLandslide_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(221,42,37,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'LOW LANDSLIDE SUSCEPTIBILITY':
+                    return {
+                pane: 'pane_GingoogHazardFloodandLandslide_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(246,87,62,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'MODERATE FLOOD SUSCEPTIBILITY':
+                    return {
+                pane: 'pane_GingoogHazardFloodandLandslide_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(252,134,102,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'MODERATE LANDSLIDE SUSCEPTIBILITY':
+                    return {
+                pane: 'pane_GingoogHazardFloodandLandslide_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(252,179,152,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'VERY HIGH LANDSLIDE SUSCEPTIBILITY':
+                    return {
+                pane: 'pane_GingoogHazardFloodandLandslide_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(254,220,205,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'VRY HIGH FLOOD SUSCEPTIBILITY':
+                    return {
+                pane: 'pane_GingoogHazardFloodandLandslide_2',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,245,240,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_GingoogHazardFloodandLandslide_2');
+        map.getPane('pane_GingoogHazardFloodandLandslide_2').style.zIndex = 402;
+        map.getPane('pane_GingoogHazardFloodandLandslide_2').style['mix-blend-mode'] = 'normal';
+        var layer_GingoogHazardFloodandLandslide_2 = new L.geoJson(json_GingoogHazardFloodandLandslide_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_GingoogHazardFloodandLandslide_2',
+            layerName: 'layer_GingoogHazardFloodandLandslide_2',
+            pane: 'pane_GingoogHazardFloodandLandslide_2',
+            onEachFeature: pop_GingoogHazardFloodandLandslide_2,
+            style: style_GingoogHazardFloodandLandslide_2_0,
+        });
+        bounds_group.addLayer(layer_GingoogHazardFloodandLandslide_2);
+        map.addLayer(layer_GingoogHazardFloodandLandslide_2);
+        function pop_Gingoog_bybrgy_no_overlapping_3(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ID'] !== null ? autolinker.link(feature.properties['ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">BARANGAY</th>\
+                        <td>' + (feature.properties['BARANGAY'] !== null ? autolinker.link(feature.properties['BARANGAY'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Gingoog_bybrgy_no_overlapping_3_0() {
+            return {
+                pane: 'pane_Gingoog_bybrgy_no_overlapping_3',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Gingoog_bybrgy_no_overlapping_3');
+        map.getPane('pane_Gingoog_bybrgy_no_overlapping_3').style.zIndex = 403;
+        map.getPane('pane_Gingoog_bybrgy_no_overlapping_3').style['mix-blend-mode'] = 'normal';
+        var layer_Gingoog_bybrgy_no_overlapping_3 = new L.geoJson(json_Gingoog_bybrgy_no_overlapping_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Gingoog_bybrgy_no_overlapping_3',
+            layerName: 'layer_Gingoog_bybrgy_no_overlapping_3',
+            pane: 'pane_Gingoog_bybrgy_no_overlapping_3',
+            onEachFeature: pop_Gingoog_bybrgy_no_overlapping_3,
+            style: style_Gingoog_bybrgy_no_overlapping_3_0,
+        });
+        bounds_group.addLayer(layer_Gingoog_bybrgy_no_overlapping_3);
+        map.addLayer(layer_Gingoog_bybrgy_no_overlapping_3);
+        function pop_Geotag_4(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Folder'] !== null ? '<img src="images/' + String(feature.properties['Folder']).replace(/[\\\/:]/g, '_').trim() + '">' : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Geotag_4_0() {
+            return {
+                pane: 'pane_Geotag_4',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(213,180,60,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Geotag_4');
+        map.getPane('pane_Geotag_4').style.zIndex = 404;
+        map.getPane('pane_Geotag_4').style['mix-blend-mode'] = 'normal';
+        var layer_Geotag_4 = new L.geoJson(json_Geotag_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Geotag_4',
+            layerName: 'layer_Geotag_4',
+            pane: 'pane_Geotag_4',
+            onEachFeature: pop_Geotag_4,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Geotag_4_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_Geotag_4);
+        map.addLayer(layer_Geotag_4);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/Geotag_4.png" /> Geotag': layer_Geotag_4,'<img src="legend/Gingoog_bybrgy_no_overlapping_3.png" /> Gingoog_bybrgy_no_overlapping': layer_Gingoog_bybrgy_no_overlapping_3,'Gingoog Hazard Flood and Landslide<br /><table><tr><td style="text-align: center;"><img src="legend/GingoogHazardFloodandLandslide_2_HIGHFLOODSUSCEPTIBILITY0.png" /></td><td>HIGH FLOOD SUSCEPTIBILITY</td></tr><tr><td style="text-align: center;"><img src="legend/GingoogHazardFloodandLandslide_2_HIGHLANDSLIDESUSCEPTIBILITY1.png" /></td><td>HIGH LANDSLIDE SUSCEPTIBILITY</td></tr><tr><td style="text-align: center;"><img src="legend/GingoogHazardFloodandLandslide_2_LOWFLOODSUSCEPTIBILITY2.png" /></td><td>LOW FLOOD SUSCEPTIBILITY</td></tr><tr><td style="text-align: center;"><img src="legend/GingoogHazardFloodandLandslide_2_LOWLANDSLIDESUSCEPTIBILITY3.png" /></td><td>LOW LANDSLIDE SUSCEPTIBILITY</td></tr><tr><td style="text-align: center;"><img src="legend/GingoogHazardFloodandLandslide_2_MODERATEFLOODSUSCEPTIBILITY4.png" /></td><td>MODERATE FLOOD SUSCEPTIBILITY</td></tr><tr><td style="text-align: center;"><img src="legend/GingoogHazardFloodandLandslide_2_MODERATELANDSLIDESUSCEPTIBILITY5.png" /></td><td>MODERATE LANDSLIDE SUSCEPTIBILITY</td></tr><tr><td style="text-align: center;"><img src="legend/GingoogHazardFloodandLandslide_2_VERYHIGHLANDSLIDESUSCEPTIBILITY6.png" /></td><td>VERY HIGH LANDSLIDE SUSCEPTIBILITY</td></tr><tr><td style="text-align: center;"><img src="legend/GingoogHazardFloodandLandslide_2_VRYHIGHFLOODSUSCEPTIBILITY7.png" /></td><td>VRY HIGH FLOOD SUSCEPTIBILITY</td></tr></table>': layer_GingoogHazardFloodandLandslide_2,'<img src="legend/Gingoog_Boundary_1.png" /> Gingoog_Boundary': layer_Gingoog_Boundary_1,"Google Terrain Hybrid": layer_GoogleTerrainHybrid_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        var i = 0;
+        layer_Gingoog_bybrgy_no_overlapping_3.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['BARANGAY'] !== null?String('<div style="color: #fffdfd; font-size: 10pt; font-family: \'Arial\', sans-serif;">' + layer.feature.properties['BARANGAY']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Gingoog_bybrgy_no_overlapping_3'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        resetLabels([layer_GingoogHazardFloodandLandslide_2,layer_Gingoog_bybrgy_no_overlapping_3]);
+        map.on("zoomend", function(){
+            resetLabels([layer_GingoogHazardFloodandLandslide_2,layer_Gingoog_bybrgy_no_overlapping_3]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_GingoogHazardFloodandLandslide_2,layer_Gingoog_bybrgy_no_overlapping_3]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_GingoogHazardFloodandLandslide_2,layer_Gingoog_bybrgy_no_overlapping_3]);
+        });
+        </script>
+    </body>
+</html>
